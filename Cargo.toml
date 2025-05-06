@@ -10,4 +10,5 @@ colorize = "0.1.0"
 inquire = "0.7.5"
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
+thiserror = "2.0.12"
 validator = "0.20.0"
