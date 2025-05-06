@@ -1,4 +1,4 @@
-use std::{env, fs, io::Read, path::Path, process::{Command, Output}};
+use std::{fs, io::Read, path::{Path, PathBuf}, process::{Command, Output}};
 
 use clap::{command, Parser, Subcommand};
 use colored::Colorize;
@@ -255,9 +255,11 @@ fn list_all_users() -> Result<(), AppError> {
 
 // Storage helper functions
 fn get_global_profile_file_path() -> Result<String, AppError> {
-    let home_dir: String = env::var("HOME").unwrap_or_else(|_| String::from("."));
-    let global_profile_file = format!("{}/{}", home_dir, GLOBAL_GIT_PROFILES_PATH);
-    Ok(global_profile_file)
+    let home_dir: PathBuf = dirs::home_dir().ok_or_else(|| {
+        AppError::Validation("failed to find the home directory".to_string())
+    })?;
+    let profile_file_path: PathBuf = home_dir.join(GLOBAL_GIT_PROFILES_PATH);
+    Ok(profile_file_path.to_string_lossy().into_owned())
 }
 
 fn load_users() -> Result<Vec<GitUserProfile>, AppError> {
