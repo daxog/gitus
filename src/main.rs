@@ -38,6 +38,9 @@ enum AppError {
     /// Error when executing Git commands
     #[error("git command failed: {0}")]
     GitCommand(String),
+    /// Error when current directory is not a Git repository
+    # [error("not in git repository")]
+    NotInGitRepository,
     /// Error during input validation.
     #[error("validation error: {0}")]
     Validation(String),
@@ -99,10 +102,16 @@ enum Commands {
 }
 
 /// Entry point for application
-fn main() {
+fn main() -> Result<(), AppError>  {
+    if !is_inside_git_repo()? {
+        return Err(AppError::NotInGitRepository);
+    }
+
     if let Err(e) = run_app() {
         eprintln!("{}: {}", "error running app".red(), e);
     }
+
+    Ok(())
 }
 
 /// Main application logic for command execution
@@ -259,7 +268,6 @@ fn menu_add_user() -> Result<(), AppError> {
     )?;
     
     add_user(&username, &email, &alias)?;
-    print_success("added user");
     Ok(())
 }
 
@@ -363,7 +371,6 @@ fn get_git_user(key: &str) -> Result<String, AppError> {
     Ok(value)
 }
 
-
 /// Executes a Git config set command
 ///
 /// # Arguments
@@ -379,6 +386,21 @@ fn set_git_config(key: &str, value: &str) -> Result<(), AppError> {
     }
 
     Ok(())  
+}
+
+fn is_inside_git_repo() -> Result<bool, AppError> {
+    let git_command_output: Output = Command::new("git")
+        .args(["rev-parse", "--is-inside-work-tree"])
+        .output()?;
+
+    if !git_command_output.status.success() {
+        return Err(AppError::GitCommand(
+            String::from_utf8(git_command_output.stderr)?.trim().to_string(),
+        ));
+    }
+
+    let value = String::from_utf8_lossy(&git_command_output.stdout).to_string();
+    Ok(value.trim() == "true")
 }
 
 /// Builds list of user aliases for menu to display
