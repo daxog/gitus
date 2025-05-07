@@ -1,6 +1,6 @@
 [package]
 name = "gitus"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 authors = ["daxog"]
 description = "Simple CLI tool for switching between Git users."
@@ -8,7 +8,6 @@ license = "MIT"
 repository = "https://github.com/daxog/gitus"
 keywords = ["git", "cli", "profile", "switch"]
 categories = ["command-line-utilities", "development-tools"]
-documentation = "https://docs.rs/gitus"
 
 [dependencies]
 clap = { version = "4.5.37", features = ["derive"] }
