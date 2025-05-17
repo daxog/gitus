@@ -16,7 +16,6 @@ Simple CLI tool to quickly switch between different Git users. All user profiles
 Run alone:
 `gitus`
 
-![placeholder](https://github.com/daxog/gitus/blob/master/gitus_use.gif)
 ## Contributing
 Contributions are welcome! Feel free to submit a pull request or create a issue.
 
