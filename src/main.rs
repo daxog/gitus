@@ -55,9 +55,6 @@ fn run_app() -> Result<(), AppError> {
 }
 
 // Switches current Git user to selected user profile
-///
-/// # Arguments
-/// * `user_alias` - Alias of the user profile to switch to
 pub fn switch_user(user_alias: &str) -> Result<(), AppError> {
     let users: Vec<GitUserProfile> = load_users()?;
     check_if_users_exist(&users)?;
@@ -77,11 +74,6 @@ pub fn switch_user(user_alias: &str) -> Result<(), AppError> {
 }
 
 /// Adds a new user profile to the stored profiles
-///
-/// # Arguments
-/// * `git_username` - Git username to add
-/// * `git_email` - Git email to add
-/// * `user_alias` - Unique alias for the new profile
 fn add_user(git_username: &str, git_email: &str, user_alias: &str) -> Result<(), AppError> {
     let mut users: Vec<GitUserProfile> = load_users()?;
 
@@ -102,9 +94,6 @@ fn add_user(git_username: &str, git_email: &str, user_alias: &str) -> Result<(),
 }
 
 /// Deletes selected user profile from storage
-///
-/// # Arguments
-/// * `user_alias` - Alias of user profile to delete
 fn delete_user(user_alias: &str) -> Result<(), AppError> {
     let mut users: Vec<GitUserProfile> = load_users()?;
     check_if_users_exist(&users)?;
@@ -142,9 +131,6 @@ fn list_all_users() -> Result<(), AppError> {
 }
 
 /// Prints success message in green color
-///
-/// # Arguments
-/// * `msg` - The message to print
 fn print_success(msg: &str) {
     println!("{}", msg.green());
 }

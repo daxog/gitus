@@ -35,9 +35,6 @@ pub fn load_users() -> Result<Vec<GitUserProfile>, AppError> {
 }
 
 /// Saves user profiles to the JSON file
-/// 
-/// # Arguments
-/// * `users` - Vector of user profiles to save
 pub fn save_users(users: &[GitUserProfile]) -> Result<(), AppError>  {
     let profile_file_path: String = get_global_profile_path()?;
     let json: String = serde_json::to_string_pretty(users)?;
@@ -46,9 +43,6 @@ pub fn save_users(users: &[GitUserProfile]) -> Result<(), AppError>  {
 }
 
 /// Checks if any users exist in storage
-///
-/// # Arguments
-/// * `users` - Vector of user profiles to check
 pub fn check_if_users_exist(users: &[GitUserProfile]) -> Result<(), AppError> {
     if users.is_empty() {
         return Err(AppError::Validation("no users found".to_string()));

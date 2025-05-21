@@ -12,10 +12,6 @@ const MAX_EMAIL_LENGTH: usize = 100;
 const MAX_ALIAS_LENGTH: usize = 30;
 
 /// Prompts user for input until valid input is provided
-///
-/// # Arguments
-/// * `prompt_message` - Message to display to user
-/// * `input_validation` - Validation function to apply to input
 pub fn prompt_until_valid<F>(prompt_message: &str, input_validation: F) -> Result<String, AppError>
 where
     F: Fn(&str) -> Result<(), AppError>,
@@ -33,10 +29,6 @@ where
 // Validate input helper functions
 
 /// Validates username input
-///
-/// # Arguments
-/// * `name` - Username to validate
-/// * `existing_users` - Existing users to check for duplicates
 pub fn validate_input_username(name: &str, existing_users: &[GitUserProfile]) -> Result<(), AppError> {
     if name.is_empty() {
         Err(AppError::Validation("Username cannot be empty".to_string()))
@@ -50,10 +42,6 @@ pub fn validate_input_username(name: &str, existing_users: &[GitUserProfile]) ->
 }
 
 /// Validates email input
-///
-/// # Arguments
-/// * `email` - Email to validate
-/// * `existing_users` - Existing users to check for duplicates
 pub fn validate_input_email(email: &str, existing_users: &[GitUserProfile]) -> Result<(), AppError> {
     if email.is_empty() {
         Err(AppError::Validation("Email cannot be empty".to_string()))
@@ -69,10 +57,6 @@ pub fn validate_input_email(email: &str, existing_users: &[GitUserProfile]) -> R
 }
 
 /// Validates an alias input
-///
-/// # Arguments
-/// * `alias` - Alias to validate
-/// * `existing_users` - Existing users to check for duplicates
 pub fn validate_input_alias(alias: &str, existing_users: &[GitUserProfile]) -> Result<(), AppError> {
     if alias.is_empty() {
         Err(AppError::Validation("Alias cannot be empty".to_string()))

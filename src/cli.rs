@@ -3,7 +3,7 @@ use clap::{Parser, Subcommand};
 /// CLI arguments parser using `clap`
 #[derive(Parser, Debug)]
 pub struct Cli {
-    /// Subcommand to execute
+    /// Subcommand chosen to execute
     #[command(subcommand)]
     pub command: Option<Commands>,
 }

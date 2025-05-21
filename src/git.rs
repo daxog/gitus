@@ -3,9 +3,6 @@ use std::process::{Command, Output};
 use crate::error::AppError;
 
 /// Executes Git config get command
-///
-/// # Arguments
-/// * `key` - Git config key (user.name or user.email)
 pub fn get_git_user(key: &str) -> Result<String, AppError> {
     let git_command_output: Output = Command::new("git")
         .args(["config", "--get", key])
@@ -22,10 +19,6 @@ pub fn get_git_user(key: &str) -> Result<String, AppError> {
 }
 
 /// Executes a Git config set command
-///
-/// # Arguments
-/// * `key` - Git config key to set (user.name or user.email)
-/// * `value` - Value to set for key (username or email)
 pub fn set_git_config(key: &str, value: &str) -> Result<(), AppError> {
     let git_command_output: Output = Command::new("git").args(["config", key, value]).output()?;
 
